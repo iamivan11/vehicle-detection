@@ -1,0 +1,28 @@
+# PyCharm files
+.idea/
+
+# Python files
+.python-version
+
+# direnv
+.env
+
+# Virtualenv
+.venv/
+
+# build, distribute
+build/-
+dist/
+
+# Cache
+__pycache__/
+.pytest_cache/
+
+# Compiled python
+*.pyc
+
+# macOS dir files
+.DS_Store
+
+# Dataset
+stanford_cars_dataset/
