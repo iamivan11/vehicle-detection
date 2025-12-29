@@ -1,5 +1,0 @@
-- train.max_epochs=2
-- train.precision=32
-- train.accelerator=cpu
-- train.num_workers=0
-- mlflow.tracking_uri=null
