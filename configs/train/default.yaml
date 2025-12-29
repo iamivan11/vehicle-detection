@@ -1,0 +1,24 @@
+batch_size: 8
+num_workers: 4
+max_epochs: 30
+lr: 0.001
+weight_decay: 0.0005
+lr_scheduler: "cosine"
+warmup_epochs: 3
+
+# Early stopping
+patience: 5
+min_delta: 0.001
+
+# Checkpointing
+save_top_k: 3
+monitor: "val_map"
+mode: "max"
+
+# Hardware
+accelerator: "auto"
+devices: 1
+precision: "16-mixed"
+
+# Seed for reproducibility
+seed: 42

@@ -1,0 +1,13 @@
+defaults:
+  - data: stanford_cars
+  - model: fasterrcnn
+  - training: default
+  - _self_
+
+mlflow:
+  tracking_uri: "http://127.0.0.1:8080"
+  experiment_name: "vehicle-detection"
+
+paths:
+  output_dir: "outputs"
+  checkpoint_dir: "checkpoints"

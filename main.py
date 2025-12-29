@@ -1,11 +1,13 @@
 from pathlib import Path
-from vehicle_detection.data import download_data_g
+
+from vehicle_detection.data import download_data
 
 
-def main():
+def main() -> None:
+    """Download dataset to project root."""
     print("Hello from vehicle-detection!")
     print("Downloading the data...")
-    download_data_g(output_dir=Path(__file__).parent)
+    download_data(output_dir=Path(__file__).parent)
     print("Successfully downloaded!")
 
 
