@@ -1,7 +1,7 @@
 defaults:
   - data: stanford_cars
   - model: fasterrcnn
-  - training: default
+  - train: default
   - _self_
 
 mlflow:

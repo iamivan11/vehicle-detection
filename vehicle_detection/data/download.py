@@ -1,5 +1,4 @@
 import logging
-import os
 import zipfile
 from pathlib import Path
 
@@ -59,7 +58,7 @@ def download_data(output_dir: str | Path = ".") -> Path:
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         zip_ref.extractall(output_dir)
 
-    os.remove(zip_path)
+    zip_path.unlink()
     logger.info(f"Dataset extracted to {dataset_path}")
 
     return dataset_path
@@ -83,9 +82,8 @@ def ensure_data_exists(data_dir: str | Path = ".") -> Path:
 
     logger.info("Dataset not found, attempting to fetch...")
 
-    if pull_dvc_data():
-        if dataset_path.exists():
-            return dataset_path
+    if pull_dvc_data() and dataset_path.exists():
+        return dataset_path
 
     logger.info("Falling back to direct download...")
     download_data(data_dir)

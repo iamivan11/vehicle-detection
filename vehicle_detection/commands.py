@@ -7,10 +7,8 @@ from hydra import compose, initialize_config_dir
 def get_config(overrides: list[str] | None = None):
     """Load Hydra configuration."""
     config_dir = Path(__file__).parent.parent / "configs"
-
     with initialize_config_dir(version_base=None, config_dir=str(config_dir.absolute())):
-        cfg = compose(config_name="config", overrides=overrides or [])
-    return cfg
+        return compose(config_name="config", overrides=overrides or [])
 
 
 def train(

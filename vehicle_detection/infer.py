@@ -66,7 +66,7 @@ def format_predictions(
     labels = predictions["labels"].cpu().numpy()
 
     detections = []
-    for box, score, label in zip(boxes, scores, labels):
+    for box, score, label in zip(boxes, scores, labels, strict=True):
         if score >= score_threshold:
             detections.append(
                 {
@@ -121,13 +121,13 @@ def infer_batch(
         result = infer_single(model, image_path, image_size, score_threshold, device)
 
         output_path = output_dir / f"{image_path.stem}.json"
-        with open(output_path, "w") as f:
+        with output_path.open("w") as f:
             json.dump(result, f, indent=2)
 
         logger.info(f"Processed {image_path.name} -> {output_path.name}")
 
 
-@hydra.main(version_base=None, config_path="../../configs", config_name="config")
+@hydra.main(version_base=None, config_path="../configs", config_name="config")
 def main(cfg: DictConfig) -> None:
     """Main inference entry point."""
     import fire

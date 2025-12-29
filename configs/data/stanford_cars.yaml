@@ -12,6 +12,5 @@ class_names:
   - "Wagon"
 
 image_size: 640
-
 # Split info (already done in dataset):
 # train: 50%, val: 25%, test: 25%

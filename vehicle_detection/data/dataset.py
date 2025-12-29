@@ -51,7 +51,7 @@ class VehicleDataset(Dataset):
 
         if len(boxes) > 0:
             boxes = torch.tensor(boxes, dtype=torch.float32)
-            labels = torch.tensor(labels, dtype=torch.int64) + 1  # +1 for background class
+            labels = torch.tensor(labels, dtype=torch.int64)
         else:
             boxes = torch.zeros((0, 4), dtype=torch.float32)
             labels = torch.zeros((0,), dtype=torch.int64)
@@ -78,7 +78,7 @@ class VehicleDataset(Dataset):
         if not label_path.exists():
             return boxes, labels
 
-        with open(label_path) as f:
+        with label_path.open() as f:
             for line in f:
                 parts = line.strip().split()
                 if len(parts) < 5:
@@ -113,9 +113,7 @@ def get_train_transforms(image_size: int) -> A.Compose:
             A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ToTensorV2(),
         ],
-        bbox_params=A.BboxParams(
-            format="pascal_voc", label_fields=["labels"], min_visibility=0.3
-        ),
+        bbox_params=A.BboxParams(format="pascal_voc", label_fields=["labels"], min_visibility=0.3),
     )
 
 
@@ -127,9 +125,7 @@ def get_val_transforms(image_size: int) -> A.Compose:
             A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ToTensorV2(),
         ],
-        bbox_params=A.BboxParams(
-            format="pascal_voc", label_fields=["labels"], min_visibility=0.3
-        ),
+        bbox_params=A.BboxParams(format="pascal_voc", label_fields=["labels"], min_visibility=0.3),
     )
 
 
