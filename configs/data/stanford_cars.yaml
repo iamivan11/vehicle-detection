@@ -1,0 +1,16 @@
+name: "stanford_cars"
+num_classes: 9
+class_names:
+  - "Coupe"
+  - "Sedan"
+  - "Pickup Truck"
+  - "Convertible"
+  - "SUV"
+  - "Minivan"
+  - "Hatchback"
+  - "Van"
+  - "Wagon"
+
+image_size: 640
+# Split info (already done in dataset):
+# train: 50%, val: 25%, test: 25%
