@@ -14,13 +14,11 @@ dependencies = [
     "lightning>=2.6.0",
     "mlflow>=3.8.1",
     "numpy>=2.3.5",
-    "pathlib>=1.0.1",
     "pycocotools>=2.0.11",
     "torch>=2.9.1",
     "torchmetrics>=1.8.2",
     "torchvision>=0.24.1",
     "tqdm>=4.67.1",
-    "ultralytics>=8.3.235",
 ]
 
 [dependency-groups]

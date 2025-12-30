@@ -2207,23 +2207,6 @@ wheels = [
 ]
 
 [[package]]
-name = "opencv-python"
-version = "4.11.0.86"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/17/06/68c27a523103dad5837dc5b87e71285280c4f098c60e4fe8a8db6486ab09/opencv-python-4.11.0.86.tar.gz", hash = "sha256:03d60ccae62304860d232272e4a4fda93c39d595780cb40b161b310244b736a4", size = 95171956, upload-time = "2025-01-16T13:52:24.737Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/05/4d/53b30a2a3ac1f75f65a59eb29cf2ee7207ce64867db47036ad61743d5a23/opencv_python-4.11.0.86-cp37-abi3-macosx_13_0_arm64.whl", hash = "sha256:432f67c223f1dc2824f5e73cdfcd9db0efc8710647d4e813012195dc9122a52a", size = 37326322, upload-time = "2025-01-16T13:52:25.887Z" },
-    { url = "https://files.pythonhosted.org/packages/3b/84/0a67490741867eacdfa37bc18df96e08a9d579583b419010d7f3da8ff503/opencv_python-4.11.0.86-cp37-abi3-macosx_13_0_x86_64.whl", hash = "sha256:9d05ef13d23fe97f575153558653e2d6e87103995d54e6a35db3f282fe1f9c66", size = 56723197, upload-time = "2025-01-16T13:55:21.222Z" },
-    { url = "https://files.pythonhosted.org/packages/f3/bd/29c126788da65c1fb2b5fb621b7fed0ed5f9122aa22a0868c5e2c15c6d23/opencv_python-4.11.0.86-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1b92ae2c8852208817e6776ba1ea0d6b1e0a1b5431e971a2a0ddd2a8cc398202", size = 42230439, upload-time = "2025-01-16T13:51:35.822Z" },
-    { url = "https://files.pythonhosted.org/packages/2c/8b/90eb44a40476fa0e71e05a0283947cfd74a5d36121a11d926ad6f3193cc4/opencv_python-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6b02611523803495003bd87362db3e1d2a0454a6a63025dc6658a9830570aa0d", size = 62986597, upload-time = "2025-01-16T13:52:08.836Z" },
-    { url = "https://files.pythonhosted.org/packages/fb/d7/1d5941a9dde095468b288d989ff6539dd69cd429dbf1b9e839013d21b6f0/opencv_python-4.11.0.86-cp37-abi3-win32.whl", hash = "sha256:810549cb2a4aedaa84ad9a1c92fbfdfc14090e2749cedf2c1589ad8359aa169b", size = 29384337, upload-time = "2025-01-16T13:52:13.549Z" },
-    { url = "https://files.pythonhosted.org/packages/a4/7d/f1c30a92854540bf789e9cd5dde7ef49bbe63f855b85a2e6b3db8135c591/opencv_python-4.11.0.86-cp37-abi3-win_amd64.whl", hash = "sha256:085ad9b77c18853ea66283e98affefe2de8cc4c1f43eda4c100cf9b2721142ec", size = 39488044, upload-time = "2025-01-16T13:52:21.928Z" },
-]
-
-[[package]]
 name = "opencv-python-headless"
 version = "4.11.0.86"
 source = { registry = "https://pypi.org/simple" }
@@ -2402,15 +2385,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pathlib"
-version = "1.0.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ac/aa/9b065a76b9af472437a0059f77e8f962fe350438b927cb80184c32f075eb/pathlib-1.0.1.tar.gz", hash = "sha256:6940718dfc3eff4258203ad5021090933e5c04707d5ca8cc9e73c94a7894ea9f", size = 49298, upload-time = "2014-09-03T15:41:57.18Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/78/f9/690a8600b93c332de3ab4a344a4ac34f00c8f104917061f779db6a918ed6/pathlib-1.0.1-py3-none-any.whl", hash = "sha256:f35f95ab8b0f59e6d354090350b44a80a80635d22efdedfa84c7ad1cf0a74147", size = 14363, upload-time = "2022-05-04T13:37:20.585Z" },
-]
-
-[[package]]
 name = "pathspec"
 version = "0.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2495,32 +2469,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/cf/86/0248f086a84f01b37aaec0fa567b397df1a119f73c16f6c7a9aac73ea309/platformdirs-4.5.1.tar.gz", hash = "sha256:61d5cdcc6065745cdd94f0f878977f8de9437be93de97c1c12f853c9c0cdcbda", size = 21715, upload-time = "2025-12-05T13:52:58.638Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cb/28/3bfe2fa5a7b9c46fe7e13c97bda14c895fb10fa2ebf1d0abb90e0cea7ee1/platformdirs-4.5.1-py3-none-any.whl", hash = "sha256:d03afa3963c806a9bed9d5125c8f4cb2fdaf74a55ab60e5d59b3fde758104d31", size = 18731, upload-time = "2025-12-05T13:52:56.823Z" },
-]
-
-[[package]]
-name = "polars"
-version = "1.35.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "polars-runtime-32" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/fa/43/09d4738aa24394751cb7e5d1fc4b5ef461d796efcadd9d00c79578332063/polars-1.35.2.tar.gz", hash = "sha256:ae458b05ca6e7ca2c089342c70793f92f1103c502dc1b14b56f0a04f2cc1d205", size = 694895, upload-time = "2025-11-09T13:20:05.921Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b4/9a/24e4b890c7ee4358964aa92c4d1865df0e8831f7df6abaa3a39914521724/polars-1.35.2-py3-none-any.whl", hash = "sha256:5e8057c8289ac148c793478323b726faea933d9776bd6b8a554b0ab7c03db87e", size = 783597, upload-time = "2025-11-09T13:18:51.361Z" },
-]
-
-[[package]]
-name = "polars-runtime-32"
-version = "1.35.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/cb/75/ac1256ace28c832a0997b20ba9d10a9d3739bd4d457c1eb1e7d196b6f88b/polars_runtime_32-1.35.2.tar.gz", hash = "sha256:6e6e35733ec52abe54b7d30d245e6586b027d433315d20edfb4a5d162c79fe90", size = 2694387, upload-time = "2025-11-09T13:20:07.624Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/66/de/a532b81e68e636483a5dd764d72e106215543f3ef49a142272b277ada8fe/polars_runtime_32-1.35.2-cp39-abi3-macosx_10_12_x86_64.whl", hash = "sha256:e465d12a29e8df06ea78947e50bd361cdf77535cd904fd562666a8a9374e7e3a", size = 40524507, upload-time = "2025-11-09T13:18:55.727Z" },
-    { url = "https://files.pythonhosted.org/packages/2d/0b/679751ea6aeaa7b3e33a70ba17f9c8150310792583f3ecf9bb1ce15fe15c/polars_runtime_32-1.35.2-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:ef2b029b78f64fb53f126654c0bfa654045c7546bd0de3009d08bd52d660e8cc", size = 36700154, upload-time = "2025-11-09T13:18:59.78Z" },
-    { url = "https://files.pythonhosted.org/packages/e2/c8/fd9f48dd6b89ae9cff53d896b51d08579ef9c739e46ea87a647b376c8ca2/polars_runtime_32-1.35.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:85dda0994b5dff7f456bb2f4bbd22be9a9e5c5e28670e23fedb13601ec99a46d", size = 41317788, upload-time = "2025-11-09T13:19:03.949Z" },
-    { url = "https://files.pythonhosted.org/packages/67/89/e09d9897a70b607e22a36c9eae85a5b829581108fd1e3d4292e5c0f52939/polars_runtime_32-1.35.2-cp39-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:3b9006902fc51b768ff747c0f74bd4ce04005ee8aeb290ce9c07ce1cbe1b58a9", size = 37850590, upload-time = "2025-11-09T13:19:08.154Z" },
-    { url = "https://files.pythonhosted.org/packages/dc/40/96a808ca5cc8707894e196315227f04a0c82136b7fb25570bc51ea33b88d/polars_runtime_32-1.35.2-cp39-abi3-win_amd64.whl", hash = "sha256:ddc015fac39735592e2e7c834c02193ba4d257bb4c8c7478b9ebe440b0756b84", size = 41290019, upload-time = "2025-11-09T13:19:12.214Z" },
-    { url = "https://files.pythonhosted.org/packages/f4/d1/8d1b28d007da43c750367c8bf5cb0f22758c16b1104b2b73b9acadb2d17a/polars_runtime_32-1.35.2-cp39-abi3-win_arm64.whl", hash = "sha256:6861145aa321a44eda7cc6694fb7751cb7aa0f21026df51b5faa52e64f9dc39b", size = 36955684, upload-time = "2025-11-09T13:19:15.666Z" },
 ]
 
 [[package]]
@@ -3875,42 +3823,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ultralytics"
-version = "8.3.235"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "matplotlib" },
-    { name = "numpy" },
-    { name = "opencv-python" },
-    { name = "pillow" },
-    { name = "polars" },
-    { name = "psutil" },
-    { name = "pyyaml" },
-    { name = "requests" },
-    { name = "scipy" },
-    { name = "torch" },
-    { name = "torchvision" },
-    { name = "ultralytics-thop" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/1d/56/25f7cbc9f799f34d3e76252bd55c81b30b0b95b1960b182e44811b0e1316/ultralytics-8.3.235.tar.gz", hash = "sha256:33cb607226a4876fe821386aa71c020d865bd2480ddd42847792cf09abd3f456", size = 925896, upload-time = "2025-12-04T09:37:09.478Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/91/cb/15e82c3c74c657625588805ef5bfd3f262fa1a251d2417abe03feb9d7624/ultralytics-8.3.235-py3-none-any.whl", hash = "sha256:217660541d38b91ded0e9450a84edff1d457386bb357119fec5680db9bf53c03", size = 1080355, upload-time = "2025-12-04T09:37:07.788Z" },
-]
-
-[[package]]
-name = "ultralytics-thop"
-version = "2.0.18"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-    { name = "torch" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/1f/63/21a32e1facfeee245dbdfb7b4669faf7a36ff7c00b50987932bdab126f4b/ultralytics_thop-2.0.18.tar.gz", hash = "sha256:21103bcd39cc9928477dc3d9374561749b66a1781b35f46256c8d8c4ac01d9cf", size = 34557, upload-time = "2025-10-29T16:58:13.526Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/c7/fb42228bb05473d248c110218ffb8b1ad2f76728ed8699856e5af21112ad/ultralytics_thop-2.0.18-py3-none-any.whl", hash = "sha256:2bb44851ad224b116c3995b02dd5e474a5ccf00acf237fe0edb9e1506ede04ec", size = 28941, upload-time = "2025-10-29T16:58:12.093Z" },
-]
-
-[[package]]
 name = "uritemplate"
 version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3955,13 +3867,11 @@ dependencies = [
     { name = "lightning" },
     { name = "mlflow" },
     { name = "numpy" },
-    { name = "pathlib" },
     { name = "pycocotools" },
     { name = "torch" },
     { name = "torchmetrics" },
     { name = "torchvision" },
     { name = "tqdm" },
-    { name = "ultralytics" },
 ]
 
 [package.dev-dependencies]
@@ -3981,13 +3891,11 @@ requires-dist = [
     { name = "lightning", specifier = ">=2.6.0" },
     { name = "mlflow", specifier = ">=3.8.1" },
     { name = "numpy", specifier = ">=2.3.5" },
-    { name = "pathlib", specifier = ">=1.0.1" },
     { name = "pycocotools", specifier = ">=2.0.11" },
     { name = "torch", specifier = ">=2.9.1" },
     { name = "torchmetrics", specifier = ">=1.8.2" },
     { name = "torchvision", specifier = ">=0.24.1" },
     { name = "tqdm", specifier = ">=4.67.1" },
-    { name = "ultralytics", specifier = ">=8.3.235" },
 ]
 
 [package.metadata.requires-dev]

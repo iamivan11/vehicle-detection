@@ -48,14 +48,14 @@ classification. The system:
 
 - 16,185 images
 - 196 original classes → generalized to 9 body types
-- Split: 70% train / 15% val / 15% test
+- Split: 50% train / 25% val / 25% test
 
 ### Model Architecture
 
 **Model:** Faster R-CNN with ResNet50-FPN backbone
 
 - Two-stage detection (region proposals + classification)
-- AdamW optimizer with OneCycleLR scheduler
+- AdamW optimizer with Cosine Annealing scheduler (with warmup)
 - 30 epochs with early stopping
 
 ---
@@ -154,8 +154,8 @@ vehicle-detection/
 │   └── data/                  # Data configs
 ├── vehicle_detection/         # Main package
 │   ├── data/                  # Data loading
-│   │   ├── dataset.py        # Dataset class
-│   │   └── datamodule.py     # Lightning DataModule
+│   │   ├── dataset.py        # Dataset and DataModule
+│   │   └── download.py       # Data download utilities
 │   ├── models/               # Model definitions
 │   │   └── detector.py       # Lightning Module
 │   ├── train.py              # Training script
