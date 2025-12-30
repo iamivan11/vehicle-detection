@@ -226,3 +226,6 @@ mlruns/
 
 # Hydra outputs
 outputs/
+
+# Checkpoints
+checkpoints/

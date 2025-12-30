@@ -6,7 +6,7 @@ import gdown
 
 logger = logging.getLogger(__name__)
 
-GDRIVE_FILE_ID = "1x8VTx9XGUvCXbiwZnThy88cEbJnSoFOm"
+GDRIVE_FILE_ID = "1zymSYwDIsZJoyOegWzMnlwfQlAY5aG2C"
 DATASET_FOLDER = "stanford_cars_dataset"
 
 

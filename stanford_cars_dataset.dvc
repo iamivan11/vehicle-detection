@@ -1,0 +1,6 @@
+outs:
+- md5: bfcd0e0389d9c48327e6ddd5ff316fa0.dir
+  size: 1990588029
+  nfiles: 32377
+  hash: md5
+  path: stanford_cars_dataset
