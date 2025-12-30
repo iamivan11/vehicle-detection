@@ -4,10 +4,9 @@ from pathlib import Path
 
 import gdown
 
-logger = logging.getLogger(__name__)
+from vehicle_detection.constants import DATASET_FOLDER, GDRIVE_FILE_ID
 
-GDRIVE_FILE_ID = "1zymSYwDIsZJoyOegWzMnlwfQlAY5aG2C"
-DATASET_FOLDER = "stanford_cars_dataset"
+logger = logging.getLogger(__name__)
 
 
 def pull_dvc_data() -> bool:

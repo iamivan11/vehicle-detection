@@ -15,20 +15,6 @@ from vehicle_detection.models import VehicleDetector
 logger = logging.getLogger(__name__)
 
 
-CLASS_NAMES = [
-    "background",
-    "Coupe",
-    "Sedan",
-    "Pickup Truck",
-    "Convertible",
-    "SUV",
-    "Minivan",
-    "Hatchback",
-    "Van",
-    "Wagon",
-]
-
-
 def load_model(checkpoint_path: str, cfg: DictConfig) -> VehicleDetector:
     """Load trained model from checkpoint."""
     model = VehicleDetector.load_from_checkpoint(
@@ -41,7 +27,7 @@ def load_model(checkpoint_path: str, cfg: DictConfig) -> VehicleDetector:
     return model
 
 
-def preprocess_image(image_path: str | Path, image_size: int = 640) -> torch.Tensor:
+def preprocess_image(image_path: str | Path, image_size: int) -> torch.Tensor:
     """Load and preprocess image for inference."""
     image = Image.open(image_path).convert("RGB")
 
@@ -58,7 +44,8 @@ def preprocess_image(image_path: str | Path, image_size: int = 640) -> torch.Ten
 
 def format_predictions(
     predictions: dict,
-    score_threshold: float = 0.5,
+    class_names: list[str],
+    score_threshold: float,
 ) -> dict[str, Any]:
     """Format model predictions to output JSON structure."""
     boxes = predictions["boxes"].cpu().numpy()
@@ -73,7 +60,7 @@ def format_predictions(
                     "bbox": [float(x) for x in box],
                     "score": float(score),
                     "class_id": int(label),
-                    "class_name": CLASS_NAMES[label] if label < len(CLASS_NAMES) else "unknown",
+                    "class_name": class_names[label] if label < len(class_names) else "unknown",
                 }
             )
 
@@ -83,8 +70,9 @@ def format_predictions(
 def infer_single(
     model: VehicleDetector,
     image_path: str | Path,
-    image_size: int = 640,
-    score_threshold: float = 0.5,
+    class_names: list[str],
+    image_size: int,
+    score_threshold: float,
     device: str = "cuda" if torch.cuda.is_available() else "cpu",
 ) -> dict[str, Any]:
     """Run inference on a single image."""
@@ -94,15 +82,16 @@ def infer_single(
     with torch.no_grad():
         predictions = model([image])[0]
 
-    return format_predictions(predictions, score_threshold)
+    return format_predictions(predictions, class_names, score_threshold)
 
 
 def infer_batch(
     model: VehicleDetector,
     image_dir: str | Path,
     output_dir: str | Path,
-    image_size: int = 640,
-    score_threshold: float = 0.5,
+    class_names: list[str],
+    image_size: int,
+    score_threshold: float,
     device: str = "cuda" if torch.cuda.is_available() else "cpu",
 ) -> None:
     """Run inference on a directory of images."""
@@ -118,7 +107,7 @@ def infer_batch(
     logger.info(f"Processing {len(image_files)} images...")
 
     for image_path in image_files:
-        result = infer_single(model, image_path, image_size, score_threshold, device)
+        result = infer_single(model, image_path, class_names, image_size, score_threshold, device)
 
         output_path = output_dir / f"{image_path.stem}.json"
         with output_path.open("w") as f:
@@ -151,6 +140,8 @@ def main(cfg: DictConfig) -> None:
         project_root = Path(hydra.utils.get_original_cwd())
         ensure_data_exists(project_root)
 
+        class_names = ["background", *cfg.data.class_names]
+
         logger.info(f"Loading model from {checkpoint}")
         model = load_model(checkpoint, cfg)
 
@@ -158,6 +149,7 @@ def main(cfg: DictConfig) -> None:
             result = infer_single(
                 model,
                 image,
+                class_names,
                 cfg.data.image_size,
                 score_threshold,
             )
@@ -167,6 +159,7 @@ def main(cfg: DictConfig) -> None:
                 model,
                 image_dir,
                 output_dir,
+                class_names,
                 cfg.data.image_size,
                 score_threshold,
             )
