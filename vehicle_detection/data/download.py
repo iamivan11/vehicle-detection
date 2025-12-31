@@ -16,10 +16,11 @@ def pull_dvc_data() -> bool:
         True if DVC pull succeeded, False otherwise.
     """
     try:
-        import dvc.api
-
+        from dvc.repo import Repo
+        
         logger.info("Attempting DVC pull...")
-        dvc.api.pull()
+        repo = Repo()
+        repo.pull()
         logger.info("DVC pull succeeded")
         return True
     except ImportError:
