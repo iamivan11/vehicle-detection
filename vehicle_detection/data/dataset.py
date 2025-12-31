@@ -169,6 +169,7 @@ class VehicleDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
             collate_fn=collate_fn,
             pin_memory=True,
+            persistent_workers=True
         )
 
     def val_dataloader(self) -> DataLoader:
@@ -184,6 +185,7 @@ class VehicleDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
             collate_fn=collate_fn,
             pin_memory=True,
+            persistent_workers=True
         )
 
     def test_dataloader(self) -> DataLoader:
@@ -199,4 +201,5 @@ class VehicleDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
             collate_fn=collate_fn,
             pin_memory=True,
+            persistent_workers=True
         )

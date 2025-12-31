@@ -3855,7 +3855,7 @@ wheels = [
 
 [[package]]
 name = "vehicle-detection"
-version = "0.1.0"
+version = "0.1.1"
 source = { virtual = "." }
 dependencies = [
     { name = "albumentations" },
@@ -3867,6 +3867,7 @@ dependencies = [
     { name = "lightning" },
     { name = "mlflow" },
     { name = "numpy" },
+    { name = "opencv-python-headless" },
     { name = "pycocotools" },
     { name = "torch" },
     { name = "torchmetrics" },
@@ -3891,6 +3892,7 @@ requires-dist = [
     { name = "lightning", specifier = ">=2.6.0" },
     { name = "mlflow", specifier = ">=3.8.1" },
     { name = "numpy", specifier = ">=2.3.5" },
+    { name = "opencv-python-headless", specifier = ">=4.11.0.86" },
     { name = "pycocotools", specifier = ">=2.0.11" },
     { name = "torch", specifier = ">=2.9.1" },
     { name = "torchmetrics", specifier = ">=1.8.2" },
