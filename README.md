@@ -56,15 +56,20 @@ classification. The system:
 
 - Two-stage detection (region proposals + classification)
 - AdamW optimizer with Cosine Annealing scheduler (with warmup)
-- 30 epochs with early stopping
 
----
+#### Baseline
+- Train for 2-5 epochs
+- Expected mAP@0.5: ~0.15–0.30
+
+#### Main
+- Train for 30 epochs
+- Expected mAP@0.5: ~0.70-0.85
 
 ## Setup
 
 ### Requirements
 
-- Python 3.11+
+- Python 3.12+
 - uv package manager
 
 ### Installation
@@ -80,7 +85,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Create environment and install dependencies
 uv venv
 source .venv/bin/activate  # Linux/Mac
-# .venv\Scripts\activate  # Windows
+#.venv\Scripts\activate  # Windows
 
 uv sync
 
@@ -88,15 +93,6 @@ uv sync
 pre-commit install
 pre-commit run -a
 ```
-
-### Data Setup
-
-```bash
-# Download dataset from Google Drive
-uv run python -m vehicle_detection.commands download
-```
-
----
 
 ## Train
 
@@ -111,9 +107,12 @@ uv run python -m vehicle_detection.commands train
 ```bash
 # Adjust hyperparameters
 uv run python -m vehicle_detection.commands train \
-    training.batch_size=32 \
-    training.lr=0.001 \
-    training.max_epochs=50
+    --batch_size=8 \
+    --max_epochs=5 \
+    --precision=32 \
+    --accelerator=gpu \
+    --num_workers=2 \
+    --tracking_uri=http://127.0.0.1:8080
 ```
 
 ### Monitoring
@@ -124,8 +123,6 @@ mlflow ui --host 127.0.0.1 --port 8080
 ```
 
 Open <http://127.0.0.1:8080> in browser to view training metrics.
-
----
 
 ## Inference
 
@@ -141,33 +138,31 @@ uv run python -m vehicle_detection.commands infer \
     --output-dir results/
 ```
 
----
-
 ## Project Structure
 
 ```
 vehicle-detection/
-├── configs/                    # Hydra configs
-│   ├── config.yaml            # Main config
-│   ├── model/                 # Model configs
-│   ├── training/              # Training configs
-│   └── data/                  # Data configs
-├── vehicle_detection/         # Main package
-│   ├── data/                  # Data loading
+├── .dvc/                     # DVC configuration
+├── configs/                  # Hydra configs
+│   ├── config.yaml           # Main config
+│   ├── model/                # Model configs
+│   ├── training/             # Training configs
+│   └── data/                 # Data configs
+├── vehicle_detection/        # Main package
+│   ├── data/                 # Data loading
 │   │   ├── dataset.py        # Dataset and DataModule
 │   │   └── download.py       # Data download utilities
 │   ├── models/               # Model definitions
 │   │   └── detector.py       # Lightning Module
 │   ├── train.py              # Training script
 │   ├── infer.py              # Inference script
+│   ├── constants.py          # Constants for download.py
 │   └── commands.py           # CLI entry point
 ├── .pre-commit-config.yaml
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
 ```
-
----
 
 ## Development
 
@@ -184,14 +179,4 @@ ruff format .
 
 # Lint code
 ruff check . --fix
-```
-
-### Adding Dependencies
-
-```bash
-# Add runtime dependency
-uv add package-name
-
-# Add dev dependency
-uv add --dev package-name
 ```
