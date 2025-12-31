@@ -17,7 +17,13 @@ def pull_dvc_data() -> bool:
     """
     try:
         from dvc.repo import Repo
-        
+
+        # Проверяем что есть локальный конфиг с credentials
+        local_config = Path(".dvc/config.local")
+        if not local_config.exists():
+            logger.warning("DVC local config not found, skipping DVC pull")
+            return False
+
         logger.info("Attempting DVC pull...")
         repo = Repo()
         repo.pull()
