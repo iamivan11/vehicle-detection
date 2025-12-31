@@ -35,7 +35,12 @@ def train(cfg: DictConfig) -> float:
     pl.seed_everything(cfg.train.seed)
 
     logger.info("Ensuring data exists...")
-    project_root = Path(hydra.utils.get_original_cwd())
+    try:
+        # @hydra.main
+        project_root = Path(hydra.utils.get_original_cwd())
+    except ValueError:
+        # compose()
+        project_root = Path.cwd()
     dataset_path = ensure_data_exists(project_root)
 
     logger.info("Setting up data module...")
