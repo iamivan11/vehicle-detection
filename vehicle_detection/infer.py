@@ -137,7 +137,12 @@ def main(cfg: DictConfig) -> None:
             checkpoint: Path to model checkpoint
             score_threshold: Minimum confidence threshold
         """
-        project_root = Path(hydra.utils.get_original_cwd())
+        try:
+            # @hydra.main
+            project_root = Path(hydra.utils.get_original_cwd())
+        except ValueError:
+            # compose()
+            project_root = Path.cwd()
         ensure_data_exists(project_root)
 
         class_names = ["background", *cfg.data.class_names]

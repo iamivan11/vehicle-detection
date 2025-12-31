@@ -15,23 +15,28 @@ def train(
     batch_size: int | None = None,
     lr: float | None = None,
     max_epochs: int | None = None,
+    precision: int | None = None,
+    accelerator: str | None = None,
+    num_workers: int | None = None,
+    tracking_uri: str | None = None,
     **kwargs,
 ) -> None:
-    """Train the vehicle detection model.
-
-    Args:
-        batch_size: Training batch size
-        lr: Learning rate
-        max_epochs: Maximum training epochs
-        **kwargs: Additional Hydra overrides
-    """
+    """Train the vehicle detection model."""
     overrides = []
     if batch_size is not None:
-        overrides.append(f"training.batch_size={batch_size}")
+        overrides.append(f"train.batch_size={batch_size}")
     if lr is not None:
-        overrides.append(f"training.lr={lr}")
+        overrides.append(f"train.lr={lr}")
     if max_epochs is not None:
-        overrides.append(f"training.max_epochs={max_epochs}")
+        overrides.append(f"train.max_epochs={max_epochs}")
+    if precision is not None:
+        overrides.append(f"train.precision={precision}")
+    if accelerator is not None:
+        overrides.append(f"train.accelerator={accelerator}")
+    if num_workers is not None:
+        overrides.append(f"train.num_workers={num_workers}")
+    if tracking_uri is not None:
+        overrides.append(f"mlflow.tracking_uri={tracking_uri}")
 
     for key, value in kwargs.items():
         overrides.append(f"{key}={value}")
@@ -50,15 +55,7 @@ def infer(
     checkpoint: str = "checkpoints/last.ckpt",
     score_threshold: float = 0.5,
 ) -> None:
-    """Run inference on images.
-
-    Args:
-        image: Path to single image
-        image_dir: Path to directory of images
-        output_dir: Output directory for results
-        checkpoint: Path to model checkpoint
-        score_threshold: Minimum confidence threshold
-    """
+    """Run inference on images."""
     import json
 
     cfg = get_config()
@@ -68,13 +65,18 @@ def infer(
 
     ensure_data_exists(Path.cwd())
 
+    class_names = ["background", *cfg.data.class_names]
     model = load_model(checkpoint, cfg)
 
     if image:
-        result = infer_single(model, image, cfg.data.image_size, score_threshold)
+        result = infer_single(
+            model, image, class_names, cfg.data.image_size, score_threshold
+        )
         print(json.dumps(result, indent=2))
     elif image_dir:
-        infer_batch(model, image_dir, output_dir, cfg.data.image_size, score_threshold)
+        infer_batch(
+            model, image_dir, output_dir, class_names, cfg.data.image_size, score_threshold
+        )
     else:
         print("Please provide --image or --image-dir")
 
