@@ -18,6 +18,7 @@ def train(
     precision: int | None = None,
     accelerator: str | None = None,
     num_workers: int | None = None,
+    tracking_uri: str | None = None,
     **kwargs,
 ) -> None:
     """Train the vehicle detection model."""
@@ -34,6 +35,8 @@ def train(
         overrides.append(f"train.accelerator={accelerator}")
     if num_workers is not None:
         overrides.append(f"train.num_workers={num_workers}")
+    if tracking_uri is not None:
+        overrides.append(f"mlflow.tracking_uri={tracking_uri}")
 
     for key, value in kwargs.items():
         overrides.append(f"{key}={value}")
