@@ -50,6 +50,12 @@ classification. The system:
 - 196 original classes → generalized to 9 body types
 - Split: 50% train / 25% val / 25% test
 
+**Class distribution (9 body types):**
+
+| Train | Validation | Test |
+|---|---|---|
+| ![Train](assets/class_dist/train.png) | ![Val](assets/class_dist/val.png) | ![Test](assets/class_dist/test.png) |
+
 ### Model Architecture
 
 **Model:** Faster R-CNN with ResNet50-FPN backbone
@@ -143,6 +149,7 @@ uv run python -m vehicle_detection.commands infer \
 ```
 vehicle-detection/
 ├── .dvc/                     # DVC configuration
+├── assets/                   # Dataset/EDA plots
 ├── configs/                  # Hydra configs
 │   ├── config.yaml           # Main config
 │   ├── model/                # Model configs

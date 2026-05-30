@@ -223,6 +223,7 @@ stanford_cars_dataset/
 
 # MLflow experiment tracking
 mlruns/
+mlflow.db
 
 # Hydra outputs
 outputs/
