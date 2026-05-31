@@ -67,7 +67,7 @@ def infer(
     from vehicle_detection.data import ensure_data_exists
     from vehicle_detection.infer import infer_batch, infer_single, load_model
 
-    ensure_data_exists(Path.cwd())
+    ensure_data_exists(Path.cwd(), cfg.data.folder, cfg.data.gdrive_file_id)
 
     class_names = ["background", *cfg.data.class_names]
     model = load_model(checkpoint, cfg)
@@ -87,9 +87,11 @@ def infer(
 
 def download() -> None:
     """Download training data from Google Drive."""
+    cfg = get_config()
+
     from vehicle_detection.data import download_data
 
-    download_data(Path.cwd())
+    download_data(Path.cwd(), cfg.data.folder, cfg.data.gdrive_file_id)
 
 
 def main() -> None:

@@ -179,7 +179,6 @@ vehicle-detection/
 │   │   └── detector.py       # Lightning Module
 │   ├── train.py              # Training script
 │   ├── infer.py              # Inference script
-│   ├── constants.py          # Constants for download.py
 │   └── commands.py           # CLI entry point
 ├── .pre-commit-config.yaml
 ├── pyproject.toml

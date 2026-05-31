@@ -1,4 +1,6 @@
 name: "stanford_cars"
+folder: "stanford_cars_dataset"
+gdrive_file_id: "18Ls7SllgX00gfJSc3EThV9vLABX54rz9"
 num_classes: 9
 class_names:
   - "Coupe"

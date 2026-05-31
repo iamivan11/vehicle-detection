@@ -4,8 +4,6 @@ from pathlib import Path
 
 import gdown
 
-from vehicle_detection.constants import DATASET_FOLDER, GDRIVE_FILE_ID
-
 logger = logging.getLogger(__name__)
 
 
@@ -18,7 +16,6 @@ def pull_dvc_data() -> bool:
     try:
         from dvc.repo import Repo
 
-        # Проверяем что есть локальный конфиг с credentials
         local_config = Path(".dvc/config.local")
         if not local_config.exists():
             logger.warning("DVC local config not found, skipping DVC pull")
@@ -37,11 +34,13 @@ def pull_dvc_data() -> bool:
         return False
 
 
-def download_data(output_dir: str | Path = ".") -> Path:
+def download_data(output_dir: str | Path, folder: str, gdrive_file_id: str) -> Path:
     """Download dataset from Google Drive, extract it, and remove the zip file.
 
     Args:
         output_dir: Directory where to save and extract the dataset
+        folder: Name of the extracted dataset folder
+        gdrive_file_id: Google Drive file ID of the dataset archive
 
     Returns:
         Path to the extracted dataset directory
@@ -49,13 +48,13 @@ def download_data(output_dir: str | Path = ".") -> Path:
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    dataset_path = output_dir / DATASET_FOLDER
+    dataset_path = output_dir / folder
     if dataset_path.exists():
         logger.info(f"Dataset already exists at {dataset_path}")
         return dataset_path
 
     zip_path = output_dir / "stanford_cars_dataset_upd2.zip"
-    url = f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}"
+    url = f"https://drive.google.com/uc?id={gdrive_file_id}"
 
     logger.info("Downloading dataset from Google Drive...")
     gdown.download(url, str(zip_path), quiet=False)
@@ -70,17 +69,19 @@ def download_data(output_dir: str | Path = ".") -> Path:
     return dataset_path
 
 
-def ensure_data_exists(data_dir: str | Path = ".") -> Path:
+def ensure_data_exists(data_dir: str | Path, folder: str, gdrive_file_id: str) -> Path:
     """Ensure dataset exists: try DVC first, then download.
 
     Args:
         data_dir: Directory containing or to contain the dataset
+        folder: Name of the dataset folder
+        gdrive_file_id: Google Drive file ID of the dataset archive
 
     Returns:
         Path to the dataset directory
     """
     data_dir = Path(data_dir)
-    dataset_path = data_dir / DATASET_FOLDER
+    dataset_path = data_dir / folder
 
     if dataset_path.exists():
         logger.info(f"Dataset found at {dataset_path}")
@@ -92,6 +93,6 @@ def ensure_data_exists(data_dir: str | Path = ".") -> Path:
         return dataset_path
 
     logger.info("Falling back to direct download...")
-    download_data(data_dir)
+    download_data(data_dir, folder, gdrive_file_id)
 
     return dataset_path

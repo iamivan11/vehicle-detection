@@ -13,8 +13,6 @@ from vehicle_detection.models import VehicleDetector
 
 logger = logging.getLogger(__name__)
 
-DATASET_FOLDER = "stanford_cars_dataset"
-
 
 def get_git_commit_id() -> str:
     """Get current git commit ID."""
@@ -41,7 +39,9 @@ def train(cfg: DictConfig) -> float:
     except ValueError:
         # compose()
         project_root = Path.cwd()
-    dataset_path = ensure_data_exists(project_root)
+    dataset_path = ensure_data_exists(
+        project_root, cfg.data.folder, cfg.data.gdrive_file_id
+    )
 
     logger.info("Setting up data module...")
     datamodule = VehicleDataModule(

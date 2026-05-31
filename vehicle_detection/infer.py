@@ -143,7 +143,7 @@ def main(cfg: DictConfig) -> None:
         except ValueError:
             # compose()
             project_root = Path.cwd()
-        ensure_data_exists(project_root)
+        ensure_data_exists(project_root, cfg.data.folder, cfg.data.gdrive_file_id)
 
         class_names = ["background", *cfg.data.class_names]
 
