@@ -13,8 +13,6 @@ from vehicle_detection.models import VehicleDetector
 
 logger = logging.getLogger(__name__)
 
-DATASET_FOLDER = "stanford_cars_dataset"
-
 
 def get_git_commit_id() -> str:
     """Get current git commit ID."""
@@ -41,7 +39,7 @@ def train(cfg: DictConfig) -> float:
     except ValueError:
         # compose()
         project_root = Path.cwd()
-    dataset_path = ensure_data_exists(project_root)
+    dataset_path = ensure_data_exists(project_root, cfg.data.folder, cfg.data.gdrive_file_id)
 
     logger.info("Setting up data module...")
     datamodule = VehicleDataModule(
@@ -55,6 +53,7 @@ def train(cfg: DictConfig) -> float:
     model = VehicleDetector(
         num_classes=cfg.data.num_classes + 1,
         pretrained=cfg.model.pretrained,
+        pretrained_backbone=cfg.model.pretrained_backbone,
         trainable_backbone_layers=cfg.model.trainable_backbone_layers,
         lr=cfg.train.lr,
         weight_decay=cfg.train.weight_decay,
@@ -62,6 +61,8 @@ def train(cfg: DictConfig) -> float:
         warmup_epochs=cfg.train.warmup_epochs,
         box_score_thresh=cfg.model.box_score_thresh,
         box_nms_thresh=cfg.model.box_nms_thresh,
+        box_detections_per_img=cfg.model.box_detections_per_img,
+        class_names=list(cfg.data.class_names),
     )
 
     checkpoint_dir = project_root / cfg.paths.checkpoint_dir
@@ -96,19 +97,30 @@ def train(cfg: DictConfig) -> float:
     git_commit = get_git_commit_id()
     mlflow_logger.experiment.log_param(mlflow_logger.run_id, "git_commit", git_commit)
 
+    ckpt_path = cfg.train.resume_from
+    if ckpt_path:
+        ckpt_path = Path(ckpt_path)
+        if not ckpt_path.is_absolute():
+            ckpt_path = project_root / ckpt_path
+        if not ckpt_path.exists():
+            raise FileNotFoundError(f"Resume checkpoint not found: {ckpt_path}")
+        ckpt_path = str(ckpt_path)
+        logger.info(f"Resuming training from checkpoint: {ckpt_path}")
+
     logger.info("Starting training...")
     trainer = pl.Trainer(
         max_epochs=cfg.train.max_epochs,
         accelerator=cfg.train.accelerator,
         devices=cfg.train.devices,
         precision=cfg.train.precision,
+        gradient_clip_val=cfg.train.gradient_clip_val,
         callbacks=callbacks,
         logger=mlflow_logger,
         log_every_n_steps=10,
         enable_progress_bar=True,
     )
 
-    trainer.fit(model, datamodule)
+    trainer.fit(model, datamodule, ckpt_path=ckpt_path)
 
     best_model_path = callbacks[0].best_model_path
     logger.info(f"Best model saved to: {best_model_path}")
