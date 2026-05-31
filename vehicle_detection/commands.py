@@ -19,6 +19,7 @@ def train(
     accelerator: str | None = None,
     num_workers: int | None = None,
     tracking_uri: str | None = None,
+    resume_from: str | None = None,
     **kwargs,
 ) -> None:
     """Train the vehicle detection model."""
@@ -42,6 +43,9 @@ def train(
         overrides.append(f"{key}={value}")
 
     cfg = get_config(overrides=overrides)
+
+    if resume_from is not None:
+        cfg.train.resume_from = resume_from
 
     from vehicle_detection.train import train as run_train
 

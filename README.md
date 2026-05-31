@@ -121,6 +121,22 @@ uv run python -m vehicle_detection.commands train \
     --tracking_uri=http://127.0.0.1:8080
 ```
 
+### Resume Training
+
+Checkpoints are saved to `checkpoints/` and versioned with DVC. To continue a
+previous run (restores model weights, optimizer, and LR scheduler state):
+
+```bash
+# Pull checkpoints from the DVC remote first (e.g. on a fresh machine / Colab)
+dvc pull
+
+uv run python -m vehicle_detection.commands train \
+    --resume_from=checkpoints/last.ckpt
+```
+
+Keep the training config identical to the original run (`max_epochs`, `lr`,
+`batch_size`) so the cosine LR schedule continues correctly.
+
 ### Monitoring
 
 ```bash

@@ -15,6 +15,9 @@ save_top_k: 3
 monitor: "val_map"
 mode: "max"
 
+# Resume training from a checkpoint (path to a .ckpt file, or null to start fresh)
+resume_from: null
+
 # Hardware
 accelerator: "auto"
 devices: 1

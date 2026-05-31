@@ -96,6 +96,16 @@ def train(cfg: DictConfig) -> float:
     git_commit = get_git_commit_id()
     mlflow_logger.experiment.log_param(mlflow_logger.run_id, "git_commit", git_commit)
 
+    ckpt_path = cfg.train.resume_from
+    if ckpt_path:
+        ckpt_path = Path(ckpt_path)
+        if not ckpt_path.is_absolute():
+            ckpt_path = project_root / ckpt_path
+        if not ckpt_path.exists():
+            raise FileNotFoundError(f"Resume checkpoint not found: {ckpt_path}")
+        ckpt_path = str(ckpt_path)
+        logger.info(f"Resuming training from checkpoint: {ckpt_path}")
+
     logger.info("Starting training...")
     trainer = pl.Trainer(
         max_epochs=cfg.train.max_epochs,
@@ -108,7 +118,7 @@ def train(cfg: DictConfig) -> float:
         enable_progress_bar=True,
     )
 
-    trainer.fit(model, datamodule)
+    trainer.fit(model, datamodule, ckpt_path=ckpt_path)
 
     best_model_path = callbacks[0].best_model_path
     logger.info(f"Best model saved to: {best_model_path}")
