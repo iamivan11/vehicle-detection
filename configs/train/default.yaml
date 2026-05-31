@@ -1,10 +1,10 @@
 batch_size: 8
-num_workers: 4
+num_workers: 2
 max_epochs: 30
-lr: 0.001
+lr: 0.0001
 weight_decay: 0.0005
-lr_scheduler: "cosine"
 warmup_epochs: 3
+gradient_clip_val: 1.0
 
 # Early stopping
 patience: 5

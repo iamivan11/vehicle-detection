@@ -6,6 +6,7 @@ from torch import Tensor
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import CosineAnnealingLR, LinearLR, SequentialLR
 from torchmetrics.detection.mean_ap import MeanAveragePrecision
+from torchvision.models import ResNet50_Weights
 from torchvision.models.detection import (
     FasterRCNN_ResNet50_FPN_Weights,
     fasterrcnn_resnet50_fpn,
@@ -20,6 +21,7 @@ class VehicleDetector(pl.LightningModule):
         self,
         num_classes: int = 10,
         pretrained: bool = True,
+        pretrained_backbone: bool = True,
         trainable_backbone_layers: int = 3,
         lr: float = 0.001,
         weight_decay: float = 0.0005,
@@ -27,6 +29,8 @@ class VehicleDetector(pl.LightningModule):
         warmup_epochs: int = 3,
         box_score_thresh: float = 0.05,
         box_nms_thresh: float = 0.5,
+        box_detections_per_img: int = 100,
+        class_names: list[str] | None = None,
     ) -> None:
         super().__init__()
         self.save_hyperparameters()
@@ -35,19 +39,25 @@ class VehicleDetector(pl.LightningModule):
         self.weight_decay = weight_decay
         self.max_epochs = max_epochs
         self.warmup_epochs = warmup_epochs
+        self.class_names = class_names
 
         weights = FasterRCNN_ResNet50_FPN_Weights.DEFAULT if pretrained else None
+        weights_backbone = (
+            ResNet50_Weights.DEFAULT if pretrained_backbone and not pretrained else None
+        )
         self.model = fasterrcnn_resnet50_fpn(
             weights=weights,
+            weights_backbone=weights_backbone,
             trainable_backbone_layers=trainable_backbone_layers,
             box_score_thresh=box_score_thresh,
             box_nms_thresh=box_nms_thresh,
+            box_detections_per_img=box_detections_per_img,
         )
 
         in_features = self.model.roi_heads.box_predictor.cls_score.in_features
         self.model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 
-        self.val_map = MeanAveragePrecision(iou_type="bbox")
+        self.val_map = MeanAveragePrecision(iou_type="bbox", class_metrics=True)
 
     def forward(self, images: list[Tensor], targets: list[dict] | None = None) -> Any:
         return self.model(images, targets)
@@ -108,6 +118,17 @@ class VehicleDetector(pl.LightningModule):
         self.log("val_map", map_results["map"], prog_bar=True)
         self.log("val_map_50", map_results["map_50"])
         self.log("val_map_75", map_results["map_75"])
+        self.log("val_mar_100", map_results["mar_100"])
+
+        per_class = map_results.get("map_per_class")
+        classes = map_results.get("classes")
+        if per_class is not None and per_class.ndim > 0:
+            for cls_id, ap in zip(classes.tolist(), per_class.tolist(), strict=False):
+                if self.class_names and 1 <= cls_id <= len(self.class_names):
+                    label = self.class_names[cls_id - 1]
+                else:
+                    label = str(cls_id)
+                self.log(f"val_ap_{label}", ap)
 
         self.val_map.reset()
 
