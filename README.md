@@ -3,7 +3,7 @@
 Automatic detection and classification of vehicles in road images using computer
 vision and deep learning.
 
-## Project Overview
+## Overview
 
 This project implements a neural network-based system for vehicle detection and
 classification. The system:
@@ -155,7 +155,7 @@ uv run python -m vehicle_detection.commands infer \
     --output-dir results/
 ```
 
-## Project Structure
+## Structure
 
 ```
 vehicle-detection/
@@ -191,11 +191,11 @@ opinionated tool.
 | ----------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Training loop           | **PyTorch Lightning**                  | Removes train-loop boilerplate; free multi-GPU, mixed precision, checkpointing             |
 | Augmentation            | **Albumentations**                     | OpenCV-fast and transforms bounding boxes in sync with images (vs torchvision transforms)  |
+| Data & model versioning | **DVC** (Google Drive remote)          | Git-tracked pointers tie datasets and checkpoints to code commits; ML-aware unlike git-lfs |
+| Experiment tracking     | **MLflow**                             | Open-source, local-first params/metrics/model registry        |
 | Config                  | **Hydra**                              | Composable YAML groups + CLI overrides → swap dataset/model in one flag (vs argparse)      |
 | CLI                     | **Fire**                               | Zero-boilerplate CLI straight from function signatures                                     |
-| Data & model versioning | **DVC** (Google Drive remote)          | Git-tracked pointers tie datasets and checkpoints to code commits; ML-aware unlike git-lfs |
-| Experiment tracking     | **MLflow**                             | Open-source, local-first params/metrics/model registry — no vendor lock-in (vs W&B)        |
-| Env & packaging         | **uv**                                 | Rust-fast installs with a real lockfile (vs pip/poetry)                                    |
+| Env & packaging         | **uv**                                 | Rust-fast installs with a real lockfile                                   |
 | Lint & format           | **Ruff**                               | One Rust tool replaces flake8 + black + isort, near-instant                                |
 | Pre-commit hooks        | **pre-commit** (+ prettier, codespell) | Auto-enforces formatting, typo and large-file checks before every commit                   |
 
