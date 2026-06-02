@@ -1,10 +1,5 @@
 # Vehicle Detection
 
-Automatic detection and classification of vehicles in road images using computer
-vision and deep learning.
-
-## Overview
-
 This project implements a neural network-based system for vehicle detection and
 classification. The system:
 
@@ -13,7 +8,7 @@ classification. The system:
   convertible, minivan, van, wagon)
 - **Outputs standardized JSON** for analytics and monitoring
 
-### I/O Format
+## I/O Format
 
 **Input:**
 
@@ -35,36 +30,38 @@ classification. The system:
 }
 ```
 
-### Dataset
+## Dataset
 
-#### Stanford Cars Dataset
+### Stanford Cars Dataset
 
-##### Overview
+#### Overview
 
 - 16,185 images
 - 196 original classes → generalized to 9 body types
 - Split: 50% train / 25% val / 25% test
 
-##### Class Distribution (9 body types)
+#### Class Distribution (9 body types)
 
 | Train                                 | Validation                        | Test                                |
 | ------------------------------------- | --------------------------------- | ----------------------------------- |
 | ![Train](assets/class_dist/train.png) | ![Val](assets/class_dist/val.png) | ![Test](assets/class_dist/test.png) |
 
-### Model Architecture
+## Architecture
 
 **Faster R-CNN with ResNet50-FPN backbone:**
 
 - Two-stage detection (region proposals + classification)
 - AdamW optimizer with Cosine Annealing scheduler (with warmup)
 
-### Metrics
+## Metrics
 
-- **mAP@0.5:0.95** — primary metric (COCO-style, averaged over IoU thresholds)
-- **mAP@0.5** — lenient metric (PASCAL VOC-style)
-- **mAP@0.75** — strict localization
-- **Per-class AP** — performance on each (imbalanced) body type
-- **mAR@100** — recall (missed-detection check)
+| Metric           | Measures                                                           | Better |
+| ---------------- | ------------------------------------------------------------------ | ------ |
+| **mAP@0.5:0.95** | Overall quality, averaged over IoU 0.5:0.95 (COCO); primary metric | ↑      |
+| **mAP@0.5**      | Quality at a lenient IoU ≥ 0.5 (PASCAL VOC-style)                  | ↑      |
+| **mAP@0.75**     | Quality at strict localization (IoU ≥ 0.75)                        | ↑      |
+| **Per-class AP** | Average precision per body type (catches weak rare classes)        | ↑      |
+| **mAR@100**      | Recall with ≤ 100 detections/image (missed-detection check)        | ↑      |
 
 ## Setup
 
@@ -192,10 +189,10 @@ opinionated tool.
 | Training loop           | **PyTorch Lightning**                  | Removes train-loop boilerplate; free multi-GPU, mixed precision, checkpointing             |
 | Augmentation            | **Albumentations**                     | OpenCV-fast and transforms bounding boxes in sync with images (vs torchvision transforms)  |
 | Data & model versioning | **DVC** (Google Drive remote)          | Git-tracked pointers tie datasets and checkpoints to code commits; ML-aware unlike git-lfs |
-| Experiment tracking     | **MLflow**                             | Open-source, local-first params/metrics/model registry        |
+| Experiment tracking     | **MLflow**                             | Open-source, local-first params/metrics/model registry                                     |
 | Config                  | **Hydra**                              | Composable YAML groups + CLI overrides → swap dataset/model in one flag (vs argparse)      |
 | CLI                     | **Fire**                               | Zero-boilerplate CLI straight from function signatures                                     |
-| Env & packaging         | **uv**                                 | Rust-fast installs with a real lockfile                                   |
+| Env & packaging         | **uv**                                 | Rust-fast installs with a real lockfile                                                    |
 | Lint & format           | **Ruff**                               | One Rust tool replaces flake8 + black + isort, near-instant                                |
 | Pre-commit hooks        | **pre-commit** (+ prettier, codespell) | Auto-enforces formatting, typo and large-file checks before every commit                   |
 
