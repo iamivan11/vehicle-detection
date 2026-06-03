@@ -58,13 +58,15 @@ classification. The system:
 
 ## Metrics
 
+Detections are evaluated with five standard object-detection metrics.
+
 | Metric           | Measures                                                           | Better |
-| ---------------- | ------------------------------------------------------------------ | ------ |
-| **mAP@0.5:0.95** | Overall quality, averaged over IoU 0.5:0.95 (COCO); primary metric | ↑      |
-| **mAP@0.5**      | Quality at a lenient IoU ≥ 0.5 (PASCAL VOC-style)                  | ↑      |
-| **mAP@0.75**     | Quality at strict localization (IoU ≥ 0.75)                        | ↑      |
-| **Per-class AP** | Average precision per body type (catches weak rare classes)        | ↑      |
-| **mAR@100**      | Recall with ≤ 100 detections/image (missed-detection check)        | ↑      |
+| ---------------- | ------------------------------------------------------------------ | :----: |
+| **mAP@0.5:0.95** | Overall quality, averaged over IoU 0.5:0.95 (COCO); primary metric |   ↑    |
+| **mAP@0.5**      | Quality at a lenient IoU ≥ 0.5 (PASCAL VOC-style)                  |   ↑    |
+| **mAP@0.75**     | Quality at strict localization (IoU ≥ 0.75)                        |   ↑    |
+| **Per-class AP** | Average precision per body type (catches weak rare classes)        |   ↑    |
+| **mAR@100**      | Recall with ≤ 100 detections/image (missed-detection check)        |   ↑    |
 
 ## Setup
 
