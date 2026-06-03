@@ -32,23 +32,26 @@ classification. The system:
 
 ## Dataset
 
-### Stanford Cars Dataset
+### 1: Stanford Cars Dataset
 
-#### Overview
+- **Description**: A dataset of 16,185 car images, with the 196 original classes
+  generalized into 9 body types for detection and classification.
+- **Classes (9 body types)**: coupe, sedan, truck, SUV, hatchback, convertible,
+  minivan, van, wagon.
 
-- 16,185 images
-- 196 original classes → generalized to 9 body types
-- Split: 50% train / 25% val / 25% test
+  | Train                                 | Validation                        | Test                                |
+  | ------------------------------------- | --------------------------------- | ----------------------------------- |
+  | ![Train](assets/class_dist/train.png) | ![Val](assets/class_dist/val.png) | ![Test](assets/class_dist/test.png) |
 
-#### Class Distribution (9 body types)
-
-| Train                                 | Validation                        | Test                                |
-| ------------------------------------- | --------------------------------- | ----------------------------------- |
-| ![Train](assets/class_dist/train.png) | ![Val](assets/class_dist/val.png) | ![Test](assets/class_dist/test.png) |
+- **Images**: RGB (JPG/PNG), normalized to 640×640.
+- **Split**:
+  - Train: 8,144 (50%)
+  - Val: 4,019 (25%)
+  - Test: 4,026 (25%)
 
 ## Architecture
 
-**Faster R-CNN with ResNet50-FPN backbone:**
+### 1: Faster R-CNN with ResNet50-FPN backbone
 
 - Two-stage detection (region proposals + classification)
 - AdamW optimizer with Cosine Annealing scheduler (with warmup)
