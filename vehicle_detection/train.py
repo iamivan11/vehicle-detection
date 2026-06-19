@@ -51,6 +51,7 @@ def train(cfg: DictConfig) -> float:
 
     logger.info("Creating model...")
     model = VehicleDetector(
+        model_name=cfg.model.name,
         num_classes=cfg.data.num_classes + 1,
         pretrained=cfg.model.pretrained,
         pretrained_backbone=cfg.model.pretrained_backbone,

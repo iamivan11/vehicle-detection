@@ -13,12 +13,21 @@ from torchvision.models.detection import (
 )
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
+MODELS = {
+    "fasterrcnn_resnet50_fpn": (
+        fasterrcnn_resnet50_fpn,
+        FasterRCNN_ResNet50_FPN_Weights,
+        ResNet50_Weights,
+    ),
+}
+
 
 class VehicleDetector(pl.LightningModule):
     """Lightning module wrapping Faster R-CNN for vehicle detection."""
 
     def __init__(
         self,
+        model_name: str = "fasterrcnn_resnet50_fpn",
         num_classes: int = 10,
         pretrained: bool = True,
         pretrained_backbone: bool = True,
@@ -41,11 +50,15 @@ class VehicleDetector(pl.LightningModule):
         self.warmup_epochs = warmup_epochs
         self.class_names = class_names
 
-        weights = FasterRCNN_ResNet50_FPN_Weights.DEFAULT if pretrained else None
+        if model_name not in MODELS:
+            raise ValueError(f"Unknown model '{model_name}'. Available: {list(MODELS)}")
+        build_fn, weights_enum, backbone_weights_enum = MODELS[model_name]
+
+        weights = weights_enum.DEFAULT if pretrained else None
         weights_backbone = (
-            ResNet50_Weights.DEFAULT if pretrained_backbone and not pretrained else None
+            backbone_weights_enum.DEFAULT if pretrained_backbone and not pretrained else None
         )
-        self.model = fasterrcnn_resnet50_fpn(
+        self.model = build_fn(
             weights=weights,
             weights_backbone=weights_backbone,
             trainable_backbone_layers=trainable_backbone_layers,
