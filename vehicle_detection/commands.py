@@ -73,14 +73,10 @@ def infer(
     model = load_model(checkpoint, cfg)
 
     if image:
-        result = infer_single(
-            model, image, class_names, cfg.data.image_size, score_threshold
-        )
+        result = infer_single(model, image, class_names, cfg.data.image_size, score_threshold)
         print(json.dumps(result, indent=2))
     elif image_dir:
-        infer_batch(
-            model, image_dir, output_dir, class_names, cfg.data.image_size, score_threshold
-        )
+        infer_batch(model, image_dir, output_dir, class_names, cfg.data.image_size, score_threshold)
     else:
         print("Please provide --image or --image-dir")
 
