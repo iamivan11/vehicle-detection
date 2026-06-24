@@ -1,4 +1,4 @@
-# --- Project artifacts (this project) ---
+# --- THIS PROJECT ---
 
 # Dataset
 stanford_cars_dataset/
@@ -14,7 +14,7 @@ mlflow.db
 # Hydra outputs
 outputs/
 
-# --- Tooling & frameworks ---
+# --- TOOLING & FRAMEWORKS ---
 
 # Ruff
 .ruff_cache/
@@ -117,7 +117,7 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# --- Python build & packaging ---
+# --- PYTHON BUILD & PACKAGING ---
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -154,7 +154,7 @@ pip-delete-this-directory.txt
 # PyPI configuration file
 .pypirc
 
-# --- Environments, editors & OS (any project) ---
+# --- ENVIRONMENTS, EDITORS & OS (ANY PROJECT) ---
 
 # PyCharm
 .idea/
